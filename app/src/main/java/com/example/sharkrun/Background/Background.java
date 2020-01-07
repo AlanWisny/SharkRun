@@ -7,27 +7,30 @@ public class Background {
 
     private Bitmap image;
     private int x, y, dx;
+    private int imgheight = 5498;
+    //private int imgheight = 10521;
 
-    public Background(Bitmap res) {
+
+    protected Background(Bitmap res) {
         image = res;
     }
 
-    public void update() {
+    protected void update() {
         y += dx;
-        if (y < -GamePanel.HEIGHT) {
+        if (y < -imgheight) {
             y = 0;
         }
     }
 
-    public void draw(Canvas canvas) {
+    protected void draw(Canvas canvas) {
         canvas.drawBitmap(image, x, y, null);
 
         if (y < 0) {
-            canvas.drawBitmap(image, x, y+GamePanel.HEIGHT, null);
+            canvas.drawBitmap(image, x, y+imgheight, null);
         }
     }
 
-    public void setVector(int dx) {
+    protected void setVector(int dx) {
         this.dx = dx;
     }
 }
