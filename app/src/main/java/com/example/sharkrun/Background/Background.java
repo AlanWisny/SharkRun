@@ -12,8 +12,10 @@ public class Background implements IBackground {
     //private int imgheight = 10521;
 
 
-    protected Background(Bitmap res) {
+    public Background(Bitmap res) {
         image = res;
+        dx = GamePanel.speed;
+        //UpSpeed();
     }
 
     public void update() {
@@ -29,11 +31,6 @@ public class Background implements IBackground {
         if (y < 0) {
             canvas.drawBitmap(image, x, y + imgheight, null);
         }
-    }
-
-    public void setVector(int dx) {
-        this.dx = dx;
-        //UpSpeed();
     }
 
     public void UpSpeed() {
