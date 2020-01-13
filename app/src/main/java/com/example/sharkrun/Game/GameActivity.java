@@ -1,15 +1,7 @@
 package com.example.sharkrun.Game;
-
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.example.sharkrun.Background.Background;
 import com.example.sharkrun.Background.GamePanel;
-import com.example.sharkrun.R;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity implements IGame.MvpView {

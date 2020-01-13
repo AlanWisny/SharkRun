@@ -1,5 +1,4 @@
 package com.example.sharkrun.Background;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.CountDownTimer;
