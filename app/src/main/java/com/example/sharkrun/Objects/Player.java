@@ -1,6 +1,9 @@
 package com.example.sharkrun.Objects;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+
+import com.example.sharkrun.Background.GamePanel;
 
 
 public class Player extends GameObject {
@@ -14,8 +17,8 @@ public class Player extends GameObject {
 
     public Player(Bitmap res, int w, int h, int numframes) {
         // TODO ervoor zorgen dat player op de juiste locatie spawned, binnen het canvas
-        x = 600;
-        y = 1400;
+        x = GamePanel.WIDTH / 2;
+        y = 900;
         score = 0;
         height = h;
         width = w;
@@ -61,16 +64,25 @@ public class Player extends GameObject {
                 if (acc < -8) {acc = -8;}
             } else {
             }
+            acc = 0;
         }
     }
 
     // de x/y van de image gedeelt door het aantal images genomen vanuit original image,
     // gedeeld door 2 zodat img op de plek van de muis drawed
     public void draw(Canvas canvas) {
-        int newx = (int) x - ((bm.getWidth() /3) / 2);
-        int newy = (int) y - ((bm.getHeight() /3) / 2);
+        // collision werkt niet omdat x en y van player anders zijn dan van de img TODO collision
+        int newx = (int) x - (bm.getWidth() / 2);
+        int newy = (int) y - (bm.getHeight() / 2);
         canvas.drawBitmap(animation.getImage(), newx, newy, null);
         //canvas.drawBitmap(animation.getImage(), x, y, null);
+    }
+
+    @Override
+    public Rect getRectangle() {
+        int newx = (int) x + (bm.getWidth() / 2);
+        int newy = (int) y + (bm.getHeight() / 2);
+        return new Rect(newx, newy, newx + width, newy + height);
     }
 
     public int getScore() {
