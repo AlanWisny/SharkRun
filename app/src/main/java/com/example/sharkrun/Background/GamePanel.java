@@ -1,6 +1,7 @@
 package com.example.sharkrun.Background;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -21,6 +22,8 @@ import java.util.Random;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 1200;
+    public static final int W = Resources.getSystem().getDisplayMetrics().widthPixels;
+    public static final int H = Resources.getSystem().getDisplayMetrics().heightPixels;
     public static final int speed = -5;
     private MainThread thread;
     private Background bg;
@@ -44,7 +47,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.sas));
-        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.sharky), 187, 367, 3);
+        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.sharky), 187, 167, 3);
         barrels = new ArrayList<Barrel>();
         barrelStartTime = System.nanoTime();
 
@@ -105,6 +108,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             for (int i = 0; i < barrels.size(); i++) {
                 barrels.get(i).update();
 
+
                 // if a barrel hits a player
                 if (collision(barrels.get(i), player)) {
                     barrels.remove(i);
@@ -113,7 +117,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 }
 
                 // als een barrel off-screen gaat
-                if (barrels.get(i).getY() > 800) {
+                if (barrels.get(i).getY() > HEIGHT) {
                     barrels.remove(i);
                 }
             }
@@ -133,6 +137,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             PlayerX = e.getX();
             player.setGoTo(PlayerX);
             player.setMoving(true);
+            player.setPlaying(true);
             return true;
         }
         if (e.getAction() == MotionEvent.ACTION_UP) {
@@ -164,5 +169,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             }
             canvas.restoreToCount(savedState);
         }
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 }

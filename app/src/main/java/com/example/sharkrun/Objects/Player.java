@@ -80,10 +80,13 @@ public class Player extends GameObject {
 
     @Override
     public Rect getRectangle() {
-        int newx = (int) x + (bm.getWidth() / 2);
-        int newy = (int) y + (bm.getHeight() / 2);
+        int newx = (int) x - (bm.getWidth() / 2);
+        int newy = (int) y - (bm.getHeight() / 2);
         return new Rect(newx, newy, newx + width, newy + height);
     }
+//    public Rect getRectangle() {
+//        return new Rect((int)x, (int)y, (int)x + width, (int)y + height);
+//    }
 
     public int getScore() {
         return score;

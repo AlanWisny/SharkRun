@@ -2,6 +2,7 @@ package com.example.sharkrun.Objects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import java.util.Random;
 
@@ -48,6 +49,10 @@ public class Barrel extends GameObject {
             System.out.println(ex);
         }
     }
+
+//    public Rect getRectangle() {
+//        return new Rect((int)x, (int)y, (int)x + width, (int)y + height);
+//    }
 
     @Override
     public int getHeight() {
