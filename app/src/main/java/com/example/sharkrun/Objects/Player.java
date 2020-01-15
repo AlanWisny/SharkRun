@@ -1,4 +1,6 @@
 package com.example.sharkrun.Objects;
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -14,11 +16,18 @@ public class Player extends GameObject {
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
+    private static int screenW;
+    private static int screenH;
+    private Bitmap[] image;
 
     public Player(Bitmap res, int w, int h, int numframes) {
         // TODO ervoor zorgen dat player op de juiste locatie spawned, binnen het canvas
-        x = GamePanel.WIDTH / 2;
-        y = 900;
+        //x = GamePanel.WIDTH / 2;
+        //y = 1700;
+
+        x = getScreenWidth() / 2;
+        y = getScreenHeight() - 300;
+
         score = 0;
         height = h;
         width = w;
@@ -26,10 +35,10 @@ public class Player extends GameObject {
         playing = true;
         acc = 0;
 
-        Bitmap[] image = new Bitmap[numframes];
-        for (int i = 0; i < image.length; i++){
+        image = new Bitmap[numframes];
+        for (int i = 0; i < image.length; i++) {
             // een array met bitmap images, gemaakt door width van huidige img te delen door het aantal frames = i = img.length
-            image[i] = Bitmap.createBitmap(bm, i*width, 0, width, height);
+            image[i] = Bitmap.createBitmap(bm, i * width, 0, width, height);
             //image[i] = Bitmap.createBitmap(bm, i*width, 0, (int) x - (bm.getWidth() / 2), y - (bm.getHeight() / 2));
         }
 
@@ -42,6 +51,7 @@ public class Player extends GameObject {
         moving = b;
     }
 
+
     public void update() {
         long elapsed = (System.nanoTime() - startTime / 1000000);
         if (elapsed > 100) {
@@ -52,16 +62,20 @@ public class Player extends GameObject {
         animation.update();
 
         if (moving) {
-                if (goTo > x) {
-                    acc += 8f;
-                } else {
-                    acc -= 8f;
-                }
+            if (goTo > x) {
+                acc += 8f;
+            } else {
+                acc -= 8f;
+            }
 
-            if (x < goTo -8 || x > goTo +8) {
+            if (x < goTo - 8 || x > goTo + 8) {
                 x += acc * 2;
-                if (acc > 8) {acc = 8;}
-                if (acc < -8) {acc = -8;}
+                if (acc > 8) {
+                    acc = 8;
+                }
+                if (acc < -8) {
+                    acc = -8;
+                }
             } else {
             }
             acc = 0;
@@ -71,8 +85,7 @@ public class Player extends GameObject {
     // de x/y van de image gedeelt door het aantal images genomen vanuit original image,
     // gedeeld door 2 zodat img op de plek van de muis drawed
     public void draw(Canvas canvas) {
-        // collision werkt niet omdat x en y van player anders zijn dan van de img TODO collision
-        int newx = (int) x - (bm.getWidth() / 2);
+        int newx = (int) x - ((bm.getWidth() / 3) / 2);
         int newy = (int) y - (bm.getHeight() / 2);
         canvas.drawBitmap(animation.getImage(), newx, newy, null);
         //canvas.drawBitmap(animation.getImage(), x, y, null);
@@ -80,13 +93,20 @@ public class Player extends GameObject {
 
     @Override
     public Rect getRectangle() {
-        int newx = (int) x - (bm.getWidth() / 2);
+        int newx = (int) x - ((bm.getWidth() / 3) / 2);
         int newy = (int) y - (bm.getHeight() / 2);
         return new Rect(newx, newy, newx + width, newy + height);
     }
-//    public Rect getRectangle() {
-//        return new Rect((int)x, (int)y, (int)x + width, (int)y + height);
-//    }
+
+    public static int getScreenWidth() {
+        screenW = Resources.getSystem().getDisplayMetrics().widthPixels;
+        return screenW;
+    }
+
+    public static int getScreenHeight() {
+        screenH = Resources.getSystem().getDisplayMetrics().heightPixels;
+        return screenH;
+    }
 
     public int getScore() {
         return score;

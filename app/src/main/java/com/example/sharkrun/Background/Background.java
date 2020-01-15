@@ -1,4 +1,5 @@
 package com.example.sharkrun.Background;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.CountDownTimer;
@@ -6,6 +7,8 @@ import android.os.CountDownTimer;
 public class Background implements IBackground {
 
     private Bitmap image;
+    private static int WIDTH, HEIGHT;
+    private Bitmap bm;
     private int x, y, dx;
     private int imgheight = 5498;
     //private int imgheight = 10521;
@@ -13,7 +16,10 @@ public class Background implements IBackground {
 
     public Background(Bitmap res) {
         image = res;
+        x = 0;
         dx = GamePanel.speed;
+        //Bitmap bm = Bitmap.createScaledBitmap(res, 600, imgheight, true);
+        Bitmap bm = Bitmap.createScaledBitmap(res, res.getWidth(), res.getHeight(), true);
         //UpSpeed();
     }
 
@@ -25,10 +31,10 @@ public class Background implements IBackground {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, x, y, null);
+        canvas.drawBitmap(bm, x, y, null);
 
         if (y < 0) {
-            canvas.drawBitmap(image, x, y + imgheight, null);
+            canvas.drawBitmap(bm, x , y + imgheight, null);
         }
     }
 
@@ -49,5 +55,15 @@ public class Background implements IBackground {
             }
         };
         timer.start();
+    }
+
+    public static int getScreenWidth() {
+        WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
+        return WIDTH;
+    }
+
+    public static int getScreenHeight() {
+        HEIGHT = Resources.getSystem().getDisplayMetrics().heightPixels;
+        return HEIGHT;
     }
 }

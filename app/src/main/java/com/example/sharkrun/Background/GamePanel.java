@@ -20,10 +20,10 @@ import java.util.Random;
 
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 1200;
-    public static final int W = Resources.getSystem().getDisplayMetrics().widthPixels;
-    public static final int H = Resources.getSystem().getDisplayMetrics().heightPixels;
+    public static int WIDTH = getScreenWidth();
+    public static int HEIGHT = getScreenHeight();
+//    public static int WIDTH = 600;
+//    public static int HEIGHT = 1200;
     public static final int speed = -5;
     private MainThread thread;
     private Background bg;
@@ -171,11 +171,18 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    // player gaat dood, reset de game
+    public void NewGame(){
+
+    }
+
     public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
+        WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
+        return WIDTH;
     }
 
     public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
+        HEIGHT = Resources.getSystem().getDisplayMetrics().heightPixels;
+        return HEIGHT;
     }
 }
