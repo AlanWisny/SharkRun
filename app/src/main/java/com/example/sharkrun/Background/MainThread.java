@@ -1,5 +1,4 @@
 package com.example.sharkrun.Background;
-
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 

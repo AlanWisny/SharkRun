@@ -1,29 +1,22 @@
 package com.example.sharkrun.Background;
-
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import com.example.sharkrun.Objects.Barrel;
 import com.example.sharkrun.Objects.GameObject;
 import com.example.sharkrun.Objects.Player;
 import com.example.sharkrun.R;
-
 import java.util.ArrayList;
 import java.util.Random;
-
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int WIDTH = getScreenWidth();
     public static int HEIGHT = getScreenHeight();
-//    public static int WIDTH = 600;
-//    public static int HEIGHT = 1200;
     public static final int speed = -5;
     private MainThread thread;
     private Background bg;
@@ -64,12 +57,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
         int counter = 0;
+
         while (retry && counter < 1000) {
             counter++;
             try {
                 thread.setRunning(false);
                 thread.join();
                 retry = false;
+                thread = null;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -163,7 +158,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
             player.draw(canvas);
-
             for (Barrel b : barrels) {
                 b.draw(canvas);
             }

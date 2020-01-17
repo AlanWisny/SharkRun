@@ -27,6 +27,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     // img loading library picasso
-    //implementation("com.squareup.okhttp3:okhttp:4.3.1")
-    //implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'it.sephiroth.android.library.picasso:picasso:2.5.2.4b'
 }

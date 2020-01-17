@@ -1,12 +1,8 @@
 package com.example.sharkrun.Objects;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-
-import com.example.sharkrun.Background.GamePanel;
-
 
 public class Player extends GameObject {
     private Bitmap bm;
@@ -21,10 +17,6 @@ public class Player extends GameObject {
     private Bitmap[] image;
 
     public Player(Bitmap res, int w, int h, int numframes) {
-        // TODO ervoor zorgen dat player op de juiste locatie spawned, binnen het canvas
-        //x = GamePanel.WIDTH / 2;
-        //y = 1700;
-
         x = getScreenWidth() / 2;
         y = getScreenHeight() - 300;
 

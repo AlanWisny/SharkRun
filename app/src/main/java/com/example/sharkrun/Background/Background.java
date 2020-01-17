@@ -2,24 +2,22 @@ package com.example.sharkrun.Background;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.os.CountDownTimer;
 
 public class Background implements IBackground {
 
-    private Bitmap image;
-    private static int WIDTH, HEIGHT;
+    private static int HEIGHT;
+    private static int WIDTH;
     private Bitmap bm;
     private int x, y, dx;
     private int imgheight = 5498;
-    //private int imgheight = 10521;
-
 
     public Background(Bitmap res) {
-        image = res;
-        x = 0;
         dx = GamePanel.speed;
-        //Bitmap bm = Bitmap.createScaledBitmap(res, 600, imgheight, true);
-        Bitmap bm = Bitmap.createScaledBitmap(res, res.getWidth(), res.getHeight(), true);
+        WIDTH = getScreenWidth();
+        HEIGHT = getScreenHeight();
+        bm = Bitmap.createScaledBitmap(res, WIDTH, res.getHeight(), false);
         //UpSpeed();
     }
 
@@ -55,6 +53,22 @@ public class Background implements IBackground {
             }
         };
         timer.start();
+    }
+
+    public Bitmap getResizedBitmap(Bitmap b, int newWidth, int newHeight){
+        int width = b.getWidth();
+        int height = b.getHeight();
+        float scaleWidth = ((float) newWidth / width);
+        float scaleHeight = ((float) newHeight / height);
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                b, 0 ,0, width, height, matrix, false);
+        b.recycle();
+
+        return resizedBitmap;
     }
 
     public static int getScreenWidth() {
