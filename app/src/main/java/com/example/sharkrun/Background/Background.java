@@ -17,7 +17,7 @@ public class Background implements IBackground {
         dx = GamePanel.speed;
         WIDTH = getScreenWidth();
         HEIGHT = getScreenHeight();
-        bm = Bitmap.createScaledBitmap(res, WIDTH, res.getHeight(), false);
+        bm = Bitmap.createScaledBitmap(res, WIDTH, res.getHeight(), true);
         //UpSpeed();
     }
 
@@ -69,6 +69,10 @@ public class Background implements IBackground {
         b.recycle();
 
         return resizedBitmap;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public static int getScreenWidth() {

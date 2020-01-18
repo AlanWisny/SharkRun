@@ -23,11 +23,15 @@ public class Barrel extends GameObject {
             speed = 40;
         }
 
+        // scale the initial bitmap
+        spritesheet = Bitmap.createScaledBitmap(res, 300, 150, false);
         Bitmap[] image = new Bitmap[numFrames];
-        this.spritesheet = res;
 
         for (int i = 0; i < image.length; i++) {
             image[i] = Bitmap.createBitmap(spritesheet, i * width, 0, width, height);
+
+//            Bitmap imageTemp = Bitmap.createScaledBitmap(spritesheet, i * 300, 150, true);
+//            image[i] = Bitmap.createBitmap(imageTemp, x, y, width, height);
         }
 
         animation.setFrames(image);

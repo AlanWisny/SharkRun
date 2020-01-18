@@ -3,7 +3,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +28,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<Barrel> barrels;
     private long barrelStartTime;
     private Random random = new Random();
+    private boolean newGameCreated;
+    private int best;
 
     public GamePanel(Context context) {
         super(context);
@@ -89,11 +94,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 // the first barrel goes through the middle
                 if (barrels.size() == 0) {
                     barrels.add(new Barrel(BitmapFactory.decodeResource(getResources(), R.drawable.barrelsheet),
-                            WIDTH / 2, 0, 37, 37, player.getScore(), 3));
+                            WIDTH / 2, 0, 100, 150, player.getScore(), 3));
                     // rest of the barrels spawns randomly along the x axis
                 } else {
                     barrels.add(new Barrel(BitmapFactory.decodeResource(getResources(), R.drawable.barrelsheet),
-                            barrelSpawnLocation, 0, 37, 37, player.getScore(), 3));
+                            barrelSpawnLocation, 0, 100, 150, player.getScore(), 3));
                 }
                 barrelStartTime = System.nanoTime();
             }
@@ -115,6 +120,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 if (barrels.get(i).getY() > HEIGHT) {
                     barrels.remove(i);
                 }
+            }
+        } else {
+            newGameCreated = false;
+            if(!newGameCreated){
+                NewGame();
             }
         }
     }
@@ -161,13 +171,40 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             for (Barrel b : barrels) {
                 b.draw(canvas);
             }
+            drawText(canvas);
             canvas.restoreToCount(savedState);
         }
     }
 
     // player gaat dood, reset de game
     public void NewGame(){
+        barrels.clear();
 
+        player.resetACC();
+        player.resetScore();
+        player.setX(WIDTH / 2);
+
+        bg.setY(0);
+
+        newGameCreated = true;
+
+        if(player.getScore() > best){
+            best = player.getScore();
+        }
+    }
+
+    public void drawText(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setTextSize(30);
+
+        canvas.drawText("DISTANCE: " + (player.getScore() * 3), 10, HEIGHT - 10, paint);
+        canvas.drawText("BEST: " + best, WIDTH - 150, HEIGHT - 10, paint);
+
+        if (!player.getPlaying() && newGameCreated){
+            Paint newPaint = new Paint();
+        }
     }
 
     public static int getScreenWidth() {
