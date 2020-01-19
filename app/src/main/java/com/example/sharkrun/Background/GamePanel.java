@@ -49,7 +49,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         bg = new Background(BitmapFactory.decodeResource(getResources(), R.drawable.sas));
-        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.sharky), 187, 167, 3);
+        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.sharky2), 200, 180, 5);
         barrels = new ArrayList<Barrel>();
         barrelStartTime = System.nanoTime();
 

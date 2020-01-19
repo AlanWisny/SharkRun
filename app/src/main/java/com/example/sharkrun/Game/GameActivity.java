@@ -20,11 +20,11 @@ public class GameActivity extends AppCompatActivity implements IGame.MvpView {
         GamePanel gp = new GamePanel(this);
         setContentView(gp);
 
-        while(gp.isNewGameCreated()){
-            if (!gp.isNewGameCreated()){
-                startActivity(new Intent(GameActivity.this, GameOverPopup.class));
-            }
-        }
+//        while(gp.isNewGameCreated()){
+//            if (!gp.isNewGameCreated()){
+//                startActivity(new Intent(GameActivity.this, GameOverPopup.class));
+//            }
+//        }
     }
 
     @Override

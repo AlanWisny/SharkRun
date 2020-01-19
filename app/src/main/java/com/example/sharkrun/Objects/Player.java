@@ -15,6 +15,7 @@ public class Player extends GameObject {
     private static int screenW;
     private static int screenH;
     private Bitmap[] image;
+    private int frames;
 
     public Player(Bitmap res, int w, int h, int numframes) {
         x = getScreenWidth() / 2;
@@ -23,19 +24,30 @@ public class Player extends GameObject {
         score = 0;
         height = h;
         width = w;
-        bm = res;
+//        bm = res;
         playing = true;
         acc = 0;
+        frames = numframes;
 
-        image = new Bitmap[numframes];
-        for (int i = 0; i < image.length; i++) {
+        image = new Bitmap[10];
+        bm = Bitmap.createScaledBitmap(res, 1000, 180, true);
+
+        for (int i = 0; i < 5; i++) {
             // een array met bitmap images, gemaakt door width van huidige img te delen door het aantal frames = i = img.length
             image[i] = Bitmap.createBitmap(bm, i * width, 0, width, height);
             //image[i] = Bitmap.createBitmap(bm, i*width, 0, (int) x - (bm.getWidth() / 2), y - (bm.getHeight() / 2));
         }
 
+        int j = 5;
+        for (int i = 4; i >= 0; i--) {
+            // een array met bitmap images, gemaakt door width van huidige img te delen door het aantal frames = i = img.length
+            image[j] = Bitmap.createBitmap(bm, i * width, 0, width, height);
+            j++;
+            //image[i] = Bitmap.createBitmap(bm, i*width, 0, (int) x - (bm.getWidth() / 2), y - (bm.getHeight() / 2));
+        }
+
         animation.setFrames(image);
-        animation.setDelay(1000);
+        animation.setDelay(150);
         startTime = System.nanoTime();
     }
 
@@ -77,16 +89,16 @@ public class Player extends GameObject {
     // de x/y van de image gedeelt door het aantal images genomen vanuit original image,
     // gedeeld door 2 zodat img op de plek van de muis drawed
     public void draw(Canvas canvas) {
-        int newx = (int) x - ((bm.getWidth() / 3) / 2);
-        int newy = (int) y - (bm.getHeight() / 2);
+        int newx = (int) x - ((bm.getWidth() / frames) / 2);
+        int newy = (int) y - (bm.getHeight() / frames);
         canvas.drawBitmap(animation.getImage(), newx, newy, null);
         //canvas.drawBitmap(animation.getImage(), x, y, null);
     }
 
     @Override
     public Rect getRectangle() {
-        int newx = (int) x - ((bm.getWidth() / 3) / 2);
-        int newy = (int) y - (bm.getHeight() / 2);
+        int newx = (int) x - ((bm.getWidth() / frames) / 2);
+        int newy = (int) y - (bm.getHeight() / frames);
         return new Rect(newx, newy, newx + width, newy + height);
     }
 
