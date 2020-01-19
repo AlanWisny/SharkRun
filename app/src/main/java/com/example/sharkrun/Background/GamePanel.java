@@ -1,5 +1,6 @@
 package com.example.sharkrun.Background;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,6 +11,9 @@ import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.example.sharkrun.Game.GameActivity;
+import com.example.sharkrun.GameOverPopup.GameOverPopup;
 import com.example.sharkrun.Objects.Barrel;
 import com.example.sharkrun.Objects.GameObject;
 import com.example.sharkrun.Objects.Player;
@@ -28,7 +32,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private ArrayList<Barrel> barrels;
     private long barrelStartTime;
     private Random random = new Random();
-    private boolean newGameCreated;
+    private boolean newGameCreated = true;
     private int best;
 
     public GamePanel(Context context) {
@@ -178,6 +182,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     // player gaat dood, reset de game
     public void NewGame(){
+//        GameOverPopup gp = new GameOverPopup();
+//        gp.setContentView(R.layout.gameoverpop);
+
         barrels.clear();
 
         player.resetACC();
@@ -186,7 +193,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         bg.setY(0);
 
-        newGameCreated = true;
+        //newGameCreated = true;
 
         if(player.getScore() > best){
             best = player.getScore();
@@ -215,5 +222,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public static int getScreenHeight() {
         HEIGHT = Resources.getSystem().getDisplayMetrics().heightPixels;
         return HEIGHT;
+    }
+
+    public boolean isNewGameCreated() {
+        return newGameCreated;
+    }
+
+    public void setNewGameCreated(boolean newGameCreated) {
+        this.newGameCreated = newGameCreated;
     }
 }

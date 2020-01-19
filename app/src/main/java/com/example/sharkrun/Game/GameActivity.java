@@ -1,7 +1,10 @@
 package com.example.sharkrun.Game;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import com.example.sharkrun.Background.GamePanel;
+import com.example.sharkrun.GameOverPopup.GameOverPopup;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity implements IGame.MvpView {
@@ -16,6 +19,12 @@ public class GameActivity extends AppCompatActivity implements IGame.MvpView {
         //setContentView(R.layout.game);
         GamePanel gp = new GamePanel(this);
         setContentView(gp);
+
+        while(gp.isNewGameCreated()){
+            if (!gp.isNewGameCreated()){
+                startActivity(new Intent(GameActivity.this, GameOverPopup.class));
+            }
+        }
     }
 
     @Override

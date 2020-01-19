@@ -16,4 +16,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Game Over Popup -->
+    <style name="GOPopup" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--  <item name="android:windowTranslucentStatus">true</item> -->
+        <item name="android:windowCloseOnTouchOutside">false</item>
+
+    </style>
+
 </resources>

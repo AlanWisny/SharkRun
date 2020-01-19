@@ -17,13 +17,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Menu.MenuActivity"
             android:theme="@style/MenuTheme"
             android:label="Shark Dash">
         </activity>
+
         <activity android:name=".Game.GameActivity"
             android:theme="@style/AppTheme">
         </activity>
+
+        <activity android:name=".GameOverPopup.GameOverPopup"
+            android:theme="@style/GOPopup">
+        </activity>
+
     </application>
 
 </manifest>
